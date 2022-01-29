@@ -1,55 +1,64 @@
+import { Ionicons } from '@expo/vector-icons'
 import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Label } from '../../components/Label'
 import {
-  ButtonContainer,
   Container,
   ContainerTitle,
   ContentFormInput,
   Context,
   Footer,
   TextNormal,
-  TextStyles,
-  Title,
-  TitleStyled
+  Title
 } from './styles'
 
-export function SignIn() {
+export function ForgotPassword() {
   const navigator = useNavigation()
 
   const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
 
-  function handleLogin() {
+  function handleForgotPassword() {
     auth()
-      .signInWithEmailAndPassword(email, password)
+      .sendPasswordResetEmail(email)
       .then(() =>
         Toast.show({
           type: 'success',
-          text1: 'Login com Sucesso!'
+          text1: 'E-mail enviado',
+          text2: 'Enviamos um e-mail para você criar uma nova senha!'
         })
       )
       .catch(() =>
         Toast.show({
           type: 'error',
-          text1: 'As informações estão incorretas!'
+          text1: 'E-mail não encontrado!'
         })
       )
   }
+
+  useLayoutEffect(() => {
+    navigator.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigator.goBack()}>
+          <Ionicons name="arrow-back-outline" size={24} color="#394452" />
+        </TouchableOpacity>
+      )
+    })
+  }, [navigator])
 
   return (
     <Container>
       <Context>
         <ContainerTitle>
-          <Title>Entrar no</Title>
-          <TitleStyled>Wallet Finances</TitleStyled>
+          <Title>Recuperação de Senha</Title>
         </ContainerTitle>
+
+        <TextNormal>Por favor entre com seu e-mail, e crie uma nova senha no seu e-mail</TextNormal>
 
         <View>
           <ContentFormInput>
@@ -65,30 +74,9 @@ export function SignIn() {
             />
           </ContentFormInput>
 
-          <ContentFormInput>
-            <Label>Senha</Label>
-            <Input
-              placeholder="Senha"
-              secureTextEntry
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-          </ContentFormInput>
-
           <Footer>
-            <Button handleSubmit={handleLogin}>Entrar</Button>
+            <Button handleSubmit={handleForgotPassword}>Comfirmar</Button>
           </Footer>
-        </View>
-
-        <View>
-          <ButtonContainer onPress={() => navigator.navigate('ForgotPassword', 'ForgotPassword')}>
-            <TextStyles>Esqueceu a Senha ?</TextStyles>
-          </ButtonContainer>
-
-          <ButtonContainer onPress={() => navigator.navigate('SignUp', 'SignUp')}>
-            <TextNormal>Não tem conta ?</TextNormal>
-            <TextStyles>Cadastre-se</TextStyles>
-          </ButtonContainer>
         </View>
       </Context>
     </Container>

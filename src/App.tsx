@@ -7,8 +7,8 @@ import AppLoading from 'expo-app-loading'
 import React from 'react'
 import { StatusBar } from 'react-native'
 import Toast from 'react-native-toast-message'
-// import { InfosDataGraficProvider } from './contexts/infosDataGraficContext';
 
+import { FinancesProvider } from './contexts/FinancesContext'
 import { Routes } from './routes'
 
 export default function App() {
@@ -20,10 +20,10 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />
 
   return (
-    <>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    <FinancesProvider>
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <Routes />
       <Toast />
-    </>
+    </FinancesProvider>
   )
 }

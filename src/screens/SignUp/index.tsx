@@ -1,3 +1,4 @@
+import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication'
 import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
@@ -9,6 +10,7 @@ import { Input } from '../../components/Input'
 import { Label } from '../../components/Label'
 import {
   ButtonContainer,
+  ButtonContainerSocial,
   Container,
   ContainerTitle,
   ContentFormInput,
@@ -35,12 +37,43 @@ export function SignUp() {
           text1: 'Conta criada com sucesso!'
         })
       )
-      .catch(() =>
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          Toast.show({
+            type: 'Error',
+            text1: 'Esse E-mail ja estar sendo usado!'
+          })
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          Toast.show({
+            type: 'Error',
+            text1: 'As informações estão incorretas!'
+          })
+        }
+      })
+  }
+
+  async function handleAppleNewAccount() {
+    try {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
+      })
+
+      if (!appleAuthRequestResponse.identityToken) {
         Toast.show({
-          type: 'error',
+          type: 'Error',
           text1: 'As informações estão incorretas!'
         })
-      )
+      }
+
+      const { identityToken, nonce } = appleAuthRequestResponse
+      const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce)
+      return auth().signInWithCredential(appleCredential)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -86,6 +119,18 @@ export function SignUp() {
             <TextStyles>Entrar</TextStyles>
           </ButtonContainer>
         </View>
+
+        <ButtonContainerSocial>
+          <AppleButton
+            buttonStyle={AppleButton.Style.BLACK}
+            buttonType={AppleButton.Type.SIGN_UP}
+            style={{
+              width: 160,
+              height: 45
+            }}
+            onPress={() => handleAppleNewAccount()}
+          />
+        </ButtonContainerSocial>
       </Context>
     </Container>
   )

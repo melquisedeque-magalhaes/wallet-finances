@@ -63,3 +63,10 @@ export const ButtonContainer = styled.TouchableOpacity`
   padding: 16px;
   margin-top: 16px;
 `
+
+export const ButtonContainerSocial = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 16px;
+`

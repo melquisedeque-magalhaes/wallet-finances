@@ -1,34 +1,23 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native'
 
-import { SignIn } from '../screens/SignIn';
-import { SignUp } from '../screens/SignUp';
+import { useAuthentication } from '../hooks/useAuthentication'
+import { AuthenticationRoutes } from './AuthenticationRoutes'
+import { PublicRoutes } from './PublicRoutes'
 
 declare global {
-    namespace ReactNavigation {
-        interface RootParamList {
-            SignIn: string;
-            SignUp: string;
-        }
+  namespace ReactNavigation {
+    interface RootParamList {
+      SignIn: string
+      SignUp: string
+      ForgotPassword: string
     }
+  }
 }
 
 export function Routes() {
-    const Stack = createNativeStackNavigator()
+  const { user } = useAuthentication()
 
-
-
-    return(
-        <NavigationContainer>
-            <Stack.Navigator 
-                screenOptions={{
-                    headerShown: false
-                }}
-            >
-                <Stack.Screen name='SignIn' component={SignIn} />
-                <Stack.Screen name='SignUp' component={SignUp} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+  return (
+    <NavigationContainer>{user ? <AuthenticationRoutes /> : <PublicRoutes />}</NavigationContainer>
+  )
 }
