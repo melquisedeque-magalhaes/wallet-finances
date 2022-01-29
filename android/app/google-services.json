@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1024923892439",
+    "project_id": "wallet-finances-2",
+    "storage_bucket": "wallet-finances-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024923892439:android:d0cd231793aa3c2b198e92",
+        "android_client_info": {
+          "package_name": "com.walletfinances"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024923892439-96t7dbp8o43ut10sfj62fjh0nqut2b2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMkkIY3QbGJnE97A1Y7MolQZb0kD5Xjm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024923892439-96t7dbp8o43ut10sfj62fjh0nqut2b2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
