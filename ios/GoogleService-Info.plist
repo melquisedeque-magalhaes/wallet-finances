@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1024923892439-tnflvt2b5tne9m5ng4m74gl2drhm7j41.apps.googleusercontent.com</string>
+	<string>683246658789-snj4jfudn6b3ccq8jmi1ub4na7kol9e3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1024923892439-tnflvt2b5tne9m5ng4m74gl2drhm7j41</string>
+	<string>com.googleusercontent.apps.683246658789-snj4jfudn6b3ccq8jmi1ub4na7kol9e3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>683246658789-uu0pntgivlpkb82fdq7hhfgk9cfmjach.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBMZzNy3U53osqDJXzxV7nHjLhBhrro97I</string>
+	<string>AIzaSyCb4wYe-ZZbPDnXxBkdqJ3w4xoU5NTrboA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1024923892439</string>
+	<string>683246658789</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.name.walletfinances</string>
+	<string>com.melqui.walletfinances</string>
 	<key>PROJECT_ID</key>
-	<string>wallet-finances-2</string>
+	<string>wallet-finances-28123</string>
 	<key>STORAGE_BUCKET</key>
-	<string>wallet-finances-2.appspot.com</string>
+	<string>wallet-finances-28123.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1024923892439:ios:fd1c1094f56ca194198e92</string>
+	<string>1:683246658789:ios:a3c486c629a7854a36200c</string>
 </dict>
 </plist>

@@ -1,9 +1,5 @@
-import styled from "styled-components/native";
 import { TextInputProps } from 'react-native'
-
-// interface Props extends TextInputProps {
-
-// }
+import styled from 'styled-components/native'
 
 export const InputStyles = styled.TextInput<TextInputProps>`
     width: 100%;

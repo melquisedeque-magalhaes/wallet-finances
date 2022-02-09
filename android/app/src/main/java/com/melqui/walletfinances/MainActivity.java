@@ -1,4 +1,4 @@
-package com.walletfinances;
+package com.melqui.walletfinances;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -5,7 +5,35 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "android": {
+      "package": "com.melqui.walletfinances",
+      "googleServicesFile": "./android/app/google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.melqui.walletfinances"
+    },
+    "plugins": [
+      "@react-native-firebase/app"
     ]
   },
-  "name": "wallet-finances"
+  "name": "wallet-finances",
+  "splash": {
+    "image": "./src/assets/splash.png",
+    "resizeMode": "center",
+    "backgroundColor": "#fff"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/icon.png",
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  "plugins": [
+    "@react-native-firebase/app",
+    "@react-native-firebase/perf",
+    "@react-native-firebase/crashlytics",
+    "@react-native-firebase/auth",
+    "@react-native-firebase/firestore"
+  ]
 }
