@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ScrollView, StatusBar } from 'react-native'
 
-import { ButtonAdd } from '../../components/ButtonAdd'
-import { GraficFinances } from '../../components/GraficFinances'
-import { Header } from '../../components/Header'
-import { ModalFinances } from '../../components/ModalFinances'
-import { ShowLegendGrafig } from '../../components/ShowLegendGrafic'
+import { ButtonAdd } from '../../components/Controllers/ButtonAdd'
+import { Header } from '../../components/Layout/Header'
+import { GraficFinances } from '../../components/Layout/Header/GraficFinances'
+import { ModalFinances } from '../../components/Layout/ModalFinances'
+import { ShowLegendGrafig } from '../../components/Layout/ShowLegendGrafic'
 import { Container, ContentFooter, ContentMain } from './styles'
 
 export function Home() {
-    const [modalVisible, setModalVisible] = useState(false)
-
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#6d5ffd" />
@@ -32,9 +30,9 @@ export function Home() {
                 </ScrollView>
 
                 <ContentFooter>
-                    <ModalFinances modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                    <ModalFinances />
 
-                    <ButtonAdd setModalVisible={setModalVisible} />
+                    <ButtonAdd />
                 </ContentFooter>
             </Container>
         </>

@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore'
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react'
 
 import { useAuthentication } from '../hooks/useAuthentication'
 
@@ -34,6 +34,8 @@ interface FinancesContextProps {
     caixa: number
     investimentTotal: number
     setInvestimentTotal: (state: number) => void
+    setModalFinancesVisible: Dispatch<SetStateAction<boolean>>
+    modalFinancesVisible: boolean
 }
 
 export const FinancesContext = createContext({} as FinancesContextProps)
@@ -47,6 +49,8 @@ export function FinancesProvider({ children }: FinancesProviderProps) {
     const [caixa, setCaixa] = useState<number>(0)
     const [internacional, setInternacional] = useState<number>(0)
     const [investimentTotal, setInvestimentTotal] = useState<number>(0)
+
+    const [modalFinancesVisible, setModalFinancesVisible] = useState(false)
 
     useEffect(() => {
         if (user?.uid) {
@@ -112,7 +116,9 @@ export function FinancesProvider({ children }: FinancesProviderProps) {
                 internacional,
                 caixa,
                 investimentTotal,
-                setInvestimentTotal
+                setInvestimentTotal,
+                modalFinancesVisible,
+                setModalFinancesVisible
             }}
         >
             {children}

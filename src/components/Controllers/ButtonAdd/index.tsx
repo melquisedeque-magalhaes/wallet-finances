@@ -1,15 +1,14 @@
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 
+import { useFinances } from '../../../hooks/useFinances'
 import { Button } from './styles'
 
-interface ButtonAddProps {
-    setModalVisible: (state: boolean) => void
-}
+export function ButtonAdd() {
+    const { setModalFinancesVisible } = useFinances()
 
-export function ButtonAdd({ setModalVisible }: ButtonAddProps) {
     return (
-        <Button onPress={() => setModalVisible(true)}>
+        <Button onPress={() => setModalFinancesVisible(true)}>
             <Ionicons name="add" size={40} color="#ffffff" />
         </Button>
     )

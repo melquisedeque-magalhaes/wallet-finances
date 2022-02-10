@@ -1,137 +1,102 @@
-import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication'
-import auth from '@react-native-firebase/auth'
+import { AppleButton } from '@invertase/react-native-apple-authentication'
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { View } from 'react-native'
-import Toast from 'react-native-toast-message'
+import { KeyboardAvoidingView, Platform, View } from 'react-native'
 
-import { Button } from '../../components/Button'
-import { Input } from '../../components/Input'
-import { Label } from '../../components/Label'
+import { Button } from '../../components/Controllers/Button'
+import { Input } from '../../components/Controllers/Input'
+import { Label } from '../../components/Controllers/Label'
+import { useAuthentication } from '../../hooks/useAuthentication'
 import {
-  ButtonContainer,
-  ButtonContainerSocial,
-  Container,
-  ContainerTitle,
-  ContentFormInput,
-  Context,
-  Footer,
-  TextNormal,
-  TextStyles,
-  Title,
-  TitleStyled
+    ButtonContainer,
+    ButtonContainerSocial,
+    Container,
+    ContainerTitle,
+    ContentFormInput,
+    Context,
+    Footer,
+    TextNormal,
+    TextStyles,
+    Title,
+    TitleStyled
 } from './styles'
 
-export function SignUp() {
-  const navigator = useNavigation()
+export default function SignUp() {
+    const navigator = useNavigation()
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+    const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        handleAppleNewAccount,
+        handleNewAccount,
+        isLoading
+    } = useAuthentication()
 
-  function handleNewAccount() {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() =>
-        Toast.show({
-          type: 'success',
-          text1: 'Conta criada com sucesso!'
-        })
-      )
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          Toast.show({
-            type: 'Error',
-            text1: 'Esse E-mail ja estar sendo usado!'
-          })
-        }
+    return (
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            enabled
+        >
+            <Container>
+                <Context>
+                    <ContainerTitle>
+                        <Title>Cadastrar no</Title>
+                        <TitleStyled>Wallet Finances</TitleStyled>
+                    </ContainerTitle>
 
-        if (error.code === 'auth/invalid-email') {
-          Toast.show({
-            type: 'Error',
-            text1: 'As informações estão incorretas!'
-          })
-        }
-      })
-  }
+                    <View>
+                        <ContentFormInput>
+                            <Label>E-mail</Label>
+                            <Input
+                                autoCorrect={false}
+                                autoComplete="off"
+                                placeholder="e-mail"
+                                autoCapitalize="none"
+                                keyboardType="email-address"
+                                value={email}
+                                onChangeText={(text) => setEmail(text)}
+                            />
+                        </ContentFormInput>
 
-  async function handleAppleNewAccount() {
-    try {
-      const appleAuthRequestResponse = await appleAuth.performRequest({
-        requestedOperation: appleAuth.Operation.LOGIN,
-        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME]
-      })
+                        <ContentFormInput>
+                            <Label>Senha</Label>
+                            <Input
+                                placeholder="Senha"
+                                secureTextEntry
+                                value={password}
+                                onChangeText={(text) => setPassword(text)}
+                            />
+                        </ContentFormInput>
 
-      if (!appleAuthRequestResponse.identityToken) {
-        Toast.show({
-          type: 'Error',
-          text1: 'As informações estão incorretas!'
-        })
-      }
+                        <Footer>
+                            <Button isLoading={isLoading} handleSubmit={handleNewAccount}>
+                                Cadastrar
+                            </Button>
+                        </Footer>
+                    </View>
 
-      const { identityToken, nonce } = appleAuthRequestResponse
-      const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce)
-      return auth().signInWithCredential(appleCredential)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+                    <View>
+                        <ButtonContainer onPress={() => navigator.navigate('SignIn', 'SingIn')}>
+                            <TextNormal>Ja tem conta ?</TextNormal>
+                            <TextStyles>Entrar</TextStyles>
+                        </ButtonContainer>
+                    </View>
 
-  return (
-    <Container>
-      <Context>
-        <ContainerTitle>
-          <Title>Cadastrar no</Title>
-          <TitleStyled>Wallet Finances</TitleStyled>
-        </ContainerTitle>
-
-        <View>
-          <ContentFormInput>
-            <Label>E-mail</Label>
-            <Input
-              autoCorrect={false}
-              autoComplete="off"
-              placeholder="e-mail"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-          </ContentFormInput>
-
-          <ContentFormInput>
-            <Label>Senha</Label>
-            <Input
-              placeholder="Senha"
-              secureTextEntry
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-          </ContentFormInput>
-
-          <Footer>
-            <Button handleSubmit={handleNewAccount}>Cadastrar</Button>
-          </Footer>
-        </View>
-
-        <View>
-          <ButtonContainer onPress={() => navigator.navigate('SignIn', 'SingIn')}>
-            <TextNormal>Ja tem conta ?</TextNormal>
-            <TextStyles>Entrar</TextStyles>
-          </ButtonContainer>
-        </View>
-
-        <ButtonContainerSocial>
-          <AppleButton
-            buttonStyle={AppleButton.Style.BLACK}
-            buttonType={AppleButton.Type.SIGN_UP}
-            style={{
-              width: 160,
-              height: 45
-            }}
-            onPress={() => handleAppleNewAccount()}
-          />
-        </ButtonContainerSocial>
-      </Context>
-    </Container>
-  )
+                    <ButtonContainerSocial>
+                        <AppleButton
+                            buttonStyle={AppleButton.Style.BLACK}
+                            buttonType={AppleButton.Type.SIGN_UP}
+                            style={{
+                                width: 160,
+                                height: 45
+                            }}
+                            onPress={() => handleAppleNewAccount()}
+                        />
+                    </ButtonContainerSocial>
+                </Context>
+            </Container>
+        </KeyboardAvoidingView>
+    )
 }

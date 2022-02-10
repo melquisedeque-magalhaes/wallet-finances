@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useFinances } from '../../hooks/useFinances'
+import { useFinances } from '../../../hooks/useFinances'
 import { ColorLegend, Container, ContentLegend, PorcentLegend, TextLegend } from './styles'
 
 export function ShowLegendGrafig() {

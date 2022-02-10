@@ -4,23 +4,23 @@ import React from 'react'
 import { Home } from '../screens/Home'
 
 declare global {
-  namespace ReactNavigation {
-    interface RootParamList {
-      Home: string
+    namespace ReactNavigation {
+        interface RootParamList {
+            Home: string
+        }
     }
-  }
 }
 
 export function AuthenticationRoutes() {
-  const Stack = createNativeStackNavigator()
+    const Stack = createNativeStackNavigator()
 
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-    >
-      <Stack.Screen name="home" component={Home} />
-    </Stack.Navigator>
-  )
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name="home" component={Home} />
+        </Stack.Navigator>
+    )
 }

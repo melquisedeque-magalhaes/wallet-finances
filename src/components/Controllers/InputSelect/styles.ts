@@ -2,7 +2,7 @@ import { Picker } from '@react-native-community/picker'
 import { TextStyle } from 'react-native'
 import styled from 'styled-components/native'
 
-import fonts from '../../styles/fonts'
+import fonts from '../../../styles/fonts'
 
 export const InputSelectContainer = styled(Picker)`
     height: 100%;

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import fonts from '../../styles/fonts'
+import fonts from '../../../styles/fonts'
 
 export const LabelStyles = styled.Text`
     font-weight: 600;
